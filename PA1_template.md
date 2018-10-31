@@ -36,7 +36,8 @@ hist(sbd1$Stepperday,xlab = "Total daily steps,breaks = 20",main="Histogram of t
      number of steps taken each day",breaks = 20, col = "grey", labels = T)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](PA1_template_files/figure/unnamed-chunk-9-1.png)<!-- -->
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-9-1.png) 
 
 ```r
 cat("The Mean of daily steps taken =", mean(sbd1$Stepperday))
