@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="alzum" />
+
+<meta name="date" content="2018-10-31" />
+
+<title>Reproducible Research: Peer Assessment 1</title>
+
+<script src="PA1_template_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="PA1_template_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="PA1_template_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="PA1_template_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="PA1_template_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="PA1_template_files/navigation-1.1/tabsets.js"></script>
+<link href="PA1_template_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="PA1_template_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Reproducible Research: Peer Assessment 1</h1>
+<h4 class="author"><em>alzum</em></h4>
+<h4 class="date"><em>October 31, 2018</em></h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#packages-installation-and-attaching"><span class="toc-section-number">0.1</span> Packages installation and attaching</a></li>
+<li><a href="#loading-and-preprocessing-the-data"><span class="toc-section-number">0.2</span> Loading and preprocessing the data</a></li>
+<li><a href="#what-is-mean-total-number-of-steps-taken-per-day"><span class="toc-section-number">0.3</span> What is mean total number of steps taken per day?</a></li>
+<li><a href="#what-is-the-average-daily-activity-pattern"><span class="toc-section-number">0.4</span> What is the average daily activity pattern?</a></li>
+<li><a href="#imputing-missing-values"><span class="toc-section-number">0.5</span> Imputing missing values</a></li>
+<li><a href="#are-there-differences-in-activity-patterns-between-weekdays-and-weekends"><span class="toc-section-number">0.6</span> Are there differences in activity patterns between weekdays and weekends?</a></li>
+</ul>
+</div>
+
+<div id="packages-installation-and-attaching" class="section level2">
+<h2><span class="header-section-number">0.1</span> Packages installation and attaching</h2>
+<p>install.packages(“tidyverse”) install.packages(“mlr”) install.packages(“egg”) library(tidyverse) library(mlr) library(egg) library(knitr)</p>
+</div>
+<div id="loading-and-preprocessing-the-data" class="section level2">
+<h2><span class="header-section-number">0.2</span> Loading and preprocessing the data</h2>
+<p>download.file(“<a href="https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip">https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip</a>”, destfile =“activity.zip”, method = “wininet”,quiet = FALSE, mode = “wb”,cacheOK = FALSE) unzip(zipfile = “activity.zip”,list = FALSE,overwrite = TRUE,unzip = “internal”)</p>
+<p>activity &lt;- read.csv(file = “activity.csv”,header = T,fill = F) activity1 &lt;- na.omit(as.data.frame(activity))</p>
+</div>
+<div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
+<h2><span class="header-section-number">0.3</span> What is mean total number of steps taken per day?</h2>
+<p>sbd &lt;- activity1 %&gt;% group_by(date) %&gt;% summarise(Stepperday = sum(steps)) sbd1 &lt;- as.data.frame(sbd) cat(“The total number of steps taken per day”) print.data.frame(sbd1, quote = F, row.names = F) hist(sbd1<span class="math inline">\(Stepperday,xlab = &quot;Total daily steps,breaks = 20&quot;,main=&quot;Histogram of the total  number of steps taken each day&quot;,breaks = 20, col = &quot;grey&quot;, labels = T) cat(&quot;The Mean of daily steps taken =&quot;, mean(sbd1\)</span>Stepperday)) cat(“The Median of daily steps taken =”, median(sbd1$Stepperday))</p>
+</div>
+<div id="what-is-the-average-daily-activity-pattern" class="section level2">
+<h2><span class="header-section-number">0.4</span> What is the average daily activity pattern?</h2>
+<p>sbi &lt;- activity1 %&gt;% group_by(interval) %&gt;% summarise(aspi = mean(steps)) ggplot(sbi,aes(interval,aspi))+geom_line(color = “blue”,size = 0.5)+ xlab(“Interval”)+ ylab(“Average Number of Steps”)+ggtitle(“Average Number of Steps per Interval”)</p>
+<p>mas &lt;- filter(sbi,sbi<span class="math inline">\(aspi == max(sbi\)</span>aspi)) mas1 &lt;- as.data.frame(mas) cat(“The 5-minutes interval which contains the maximum number of steps is”,mas1$interval, “interval.”)</p>
+<p>misv &lt;- sum(is.na(activity$steps)) cat(“The total number of missing values in the dataset are”,misv)</p>
+</div>
+<div id="imputing-missing-values" class="section level2">
+<h2><span class="header-section-number">0.5</span> Imputing missing values</h2>
+<p>activity2 &lt;- split(activity, activity<span class="math inline">\(interval) activity2 &lt;- lapply(activity2, function(x) {  x\)</span>steps[which(is.na(x$steps))] &lt;- mean(x<span class="math inline">\(steps, na.rm = TRUE)  return(x) }) activity2 &lt;- do.call(&quot;rbind&quot;, activity2) row.names(activity2) &lt;- NULL activity2 &lt;- split(activity2, activity2\)</span>date) df &lt;- lapply(activity2, function(x) { x<span class="math inline">\(steps[which(is.na(x\)</span>steps))] &lt;- mean(x$steps, na.rm = TRUE) return(x) }) activity2 &lt;- do.call(“rbind”, activity2) row.names(activity2) &lt;- NULL</p>
+<p>cat(“The new dataset is”) print.data.frame(activity2, quote = F, row.names = F)</p>
+<p>sbd2 &lt;- activity2 %&gt;% group_by(date) %&gt;% summarise(Stepperday = sum(steps)) sbd3 &lt;- as.data.frame(sbd2)</p>
+<p>hist(sbd3$Stepperday,xlab = “Total daily steps,breaks = 20”,main=“Histogram of the total number of steps taken each day”,breaks = 20, col = “violet”,labels = T)</p>
+<p>cat(“The Mean of daily steps taken =”, mean(sbd3<span class="math inline">\(Stepperday)) cat(&quot;The Median of daily steps taken =&quot;, median(sbd3\)</span>Stepperday)) cat(“The total number of steps taken per day”) print.data.frame(sbd3, quote = F, row.names = F) summary(sbd<span class="math inline">\(Stepperday) summary(sbd3\)</span>Stepperday) cat(“It seems after imputing missing values Minimum value, Maximum value and Mean remain unchanged, 1st quartile value and Median increased but 3rd quartile value decreased.”) p1 &lt;- ggplot(sbd1,aes(sbd1$Stepperday)) + geom_histogram(bins = 20,col = “black”, fill = “green”) + stat_bin(aes(y=..count.., label=..count..), geom=“text”, vjust= -0.5)+ xlab(“Total daily steps,breaks = 20”) + ggtitle(“Hisgram of total daily steps with missing values”)</p>
+<p>p2 &lt;- ggplot(sbd3,aes(sbd3$Stepperday)) + geom_histogram(bins = 20, col = “black”, fill = “blue”) + stat_bin(aes(y=..count.., label=..count..), geom=“text”, vjust= -0.5)+ xlab(“Total daily steps,breaks = 20”) + ggtitle(“Hisgram of total daily steps with filled missing values”)</p>
+<p>ggarrange(p1,p2) cat(“From the above plot it is clear that total daily steps increased only on few cases after imputing missing values as a number &gt;=0 has been imputed on raw data.”)</p>
+</div>
+<div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
+<h2><span class="header-section-number">0.6</span> Are there differences in activity patterns between weekdays and weekends?</h2>
+<p>activity2<span class="math inline">\(date &lt;- as.Date(strptime(activity2\)</span>date, format=“%Y-%m-%d”)) activity2<span class="math inline">\(daytype &lt;- sapply(activity2\)</span>date, function(x) { if (weekdays(x) == “Friday” | weekdays(x) ==“Saturday”) {y &lt;- “Weekend”} else {y &lt;- “Weekday”} y }) activity3 &lt;- as.data.frame(activity2) cat(“The new dataset with two levels -”weekday&quot; and “weekend” is as below“) print.data.frame(activity3)</p>
+<p>activity4 &lt;- aggregate(steps~interval + daytype, activity3, mean, na.rm = TRUE)</p>
+<p>p3 &lt;- ggplot(activity4, aes(x = interval , y = steps, color = daytype)) + geom_line() + labs(title = “Average daily steps by type of day”, x = “Interval”, y = “Average number of steps”) + facet_wrap(~daytype, ncol = 1, nrow=2)</p>
+<p>plot(p3)</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
