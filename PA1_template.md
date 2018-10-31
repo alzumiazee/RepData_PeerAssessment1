@@ -36,8 +36,8 @@ hist(sbd1$Stepperday,xlab = "Total daily steps,breaks = 20",main="Histogram of t
      number of steps taken each day",breaks = 20, col = "grey", labels = T)
 ```
 
-![](PA1_template_files/figure/unnamed-chunk-9-1.png)<!-- -->
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-9-1.png) 
+![](figure/unnamed-chunk-9-1.png)<!-- -->
+
 
 ```r
 cat("The Mean of daily steps taken =", mean(sbd1$Stepperday))
@@ -63,7 +63,7 @@ ggplot(sbi,aes(interval,aspi))+geom_line(color = "blue",size = 0.5)+ xlab("Inter
   ylab("Average Number of Steps")+ggtitle("Average Number of Steps per Interval")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](figure/unnamed-chunk-10-1.png)<!-- -->
 
 ```r
 mas <- filter(sbi,sbi$aspi == max(sbi$aspi))
@@ -109,7 +109,7 @@ hist(sbd3$Stepperday,xlab = "Total daily steps,breaks = 20",main="Histogram of t
      number of steps taken each day",breaks = 20, col = "violet",labels = T)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](figure/unnamed-chunk-11-1.png)<!-- -->
 
 
 ```r
@@ -172,7 +172,7 @@ p2 <- ggplot(sbd3,aes(sbd3$Stepperday)) + geom_histogram(bins = 20, col = "black
 ggarrange(p1,p2)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](figure/unnamed-chunk-12-1.png)<!-- -->
 
 ```r
 cat("From the above plot it is clear that total daily steps increased only on few cases 
@@ -204,4 +204,4 @@ p3 <- ggplot(activity4, aes(x = interval , y = steps, color = daytype)) +
 plot(p3)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](figure/unnamed-chunk-13-1.png)<!-- -->
