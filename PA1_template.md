@@ -4,17 +4,10 @@ author: "alzum"
 date: "October 31, 2018"
 output:
   html_document:
-    df_print: default
-    fig_caption: yes
-    keep_md: yes
-    number_sections: yes
-    toc: yes
-  pdf_document:
-    toc: yes
-    toc_depth: '6'
+  
 ---
 
-##Packages installation and attaching
+## Packages installation and attaching
 install.packages("tidyverse")
 install.packages("mlr")
 install.packages("egg")
@@ -28,7 +21,6 @@ download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.z
               destfile ="activity.zip", method = "wininet",quiet = FALSE,
               mode = "wb",cacheOK = FALSE)
 unzip(zipfile = "activity.zip",list = FALSE,overwrite = TRUE,unzip = "internal")
-
 activity <- read.csv(file = "activity.csv",header = T,fill = F)
 activity1 <- na.omit(as.data.frame(activity))
 
